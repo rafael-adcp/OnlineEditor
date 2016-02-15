@@ -7,27 +7,62 @@
 	</head>
 	<body>
 		<div class="container-fluid">
-			<div class="row" id="loadAreaControls">
+			<nav class="navbar navbar-default">
+			  <div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				  <a class="navbar-brand" href="#">Online Editor</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				  <ul class="nav navbar-nav">
+					<li class="dropdown">
+					  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File <span class="caret"></span></a>
+					  <ul class="dropdown-menu">
+						<li><a href="#" onclick = "newEditor()">New</a></li>
+						<li><a href="#" onclick = "">Open</a></li>
+						<li role="separator" class="divider"></li>
+						
+						
+						<li><a href="#" onclick = "save()">Save</a></li>
+						<li><a href="#" onclick = "saveAs()">Save As</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#" onclick = "clearEditor()">Clear</a></li>
+						<li role="separator" class="divider"></li>
+					  </ul>
+					</li>
+					<li><a href="#">Link</a></li>
+				  </ul>
+				</div>
+			  </div>
+			</nav>
+		
+			<div class="row">
 				<div class="col-md-8">
-					<h4>Online Editor</h4>
-					<form class="form-horizontal" name = "mainForm">
-						<div class="form-group">
-							<label for="fileinput" class="col-sm-2 control-label"> File: </label>
-							<div class="col-sm-10">
-								<input id="fileinput" type="file" class="form-control" />
-							</div>
-						</div>
+					<form class="form-horizontal">
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
-							<!--<button type="button" class="btn btn-default" onclick="teste()">teste</button>-->
-							
-							
 								<button type="button" class="btn btn-default" onclick="newEditor()">New</button>
 								<button type="button" class="btn btn-success" onclick="save()">Save</button>
 								<button type="button" class="btn btn-primary" onclick="saveAs()">Save As</button>
 								<button type="button" class="btn btn-warning" onclick="clearEditor()">Clear</button>
 							</div>
 						</div>
+					
+						<div class="form-group">
+							<label for="fileinput" class="col-sm-2 control-label"> File: </label>
+							<div class="col-sm-10">
+								<input id="fileinput" type="file" class="form-control" />
+							</div>
+						</div>
+						
 						<div class="form-group">
 							<label for="resultado" class="col-sm-2 control-label">Editor:</label>
 							<div class="col-sm-10">
@@ -44,15 +79,6 @@
 	<script type="text/javascript">
 		var fileName = "";
 		var textArea = document.getElementById('resultado');
-		
-		/*function teste(){
-			alert(
-				"Rows: "+textArea.rows +
-				"\nScroll Height: "+textArea.scrollHeight+
-				"\nScroll Width"+textArea.scrollHeight
-				
-			);
-		}*/
 		
 		document.getElementById('resultado').onscroll = function(){
 			textArea.rows = (textArea.rows + 5);
