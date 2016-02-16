@@ -51,11 +51,11 @@
 				<div class="modal-content">
 				  <div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">File Preview</h4>
+					<h4 class="modal-title" class = "" id="myModalLabel">File Preview</h4>
 				  </div>
 				  <div class="modal-body" >
 					<pre>
-						<code  id = "preview_content">
+						<code class="" id = "preview_content">
 						</code>
 					</pre>
 				  </div>
@@ -107,7 +107,12 @@
 	
 	<script type="text/javascript">
 		function preview(){
-			document.getElementById('preview_content').innerHTML = document.getElementById('resultado').value;
+			var str_array = fileName.split('.');
+			document.getElementById('preview_content').className = str_array[1];
+			document.getElementById('preview_content').innerHTML = str_array[1] + document.getElementById('resultado').value;
+			
+			
+			
 		}
 	
 	
