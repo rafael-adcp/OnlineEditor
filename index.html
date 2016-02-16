@@ -112,7 +112,7 @@
 			
 			if(extensao == 'CS'){extensao = 'C#';}
 			
-			document.getElementById('preview_content').attributes["class"] += ","+extensao;
+			document.getElementById('preview_content').attributes["class"].value += ","+extensao;
 			document.getElementById('preview_content').innerHTML = document.getElementById('resultado').value;
 			
 			
