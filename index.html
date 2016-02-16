@@ -31,8 +31,6 @@
 						<li><a href="#" onclick = "newEditor()">New</a></li>
 						<li><a href="#" onclick = "">Open</a></li>
 						<li role="separator" class="divider"></li>
-						
-						
 						<li><a href="#" onclick = "save()">Save</a></li>
 						<li><a href="#" onclick = "saveAs()">Save As</a></li>
 						<li role="separator" class="divider"></li>
@@ -46,36 +44,12 @@
 			  </div>
 			</nav>
 			
-			<!-- preview-->
-			<div class="modal fade" id="About" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			  <div class="modal-dialog" role="document">
-				<div class="modal-content">
-				  <div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" class = "" id="myModalLabel">File Preview</h4>
-				  </div>
-				  <div class="modal-body" >
-					<pre>
-						<code class="c#" id = "preview_content">
-						</code>
-					</pre>
-				  </div>
-				  <div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-				  </div>
-				</div>
-			  </div>
-			</div>
-			 <!--preview-->
-			
-		
 			<div class="row">
 				<div class="col-md-8">
 					<form class="form-horizontal">
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								<button type="button" class="btn btn-default" onclick="newEditor()">New</button>
-								<button type="button" class="btn btn-default" data-toggle="modal" data-target="#About" onclick="preview()">preview</button>
 								<button type="button" class="btn btn-success" onclick="save()">Save</button>
 								<button type="button" class="btn btn-primary" onclick="saveAs()">Save As</button>
 								<button type="button" class="btn btn-warning" onclick="clearEditor()">Clear</button>
@@ -92,7 +66,7 @@
 						<div class="form-group">
 							<label for="resultado" class="col-sm-2 control-label">Editor:</label>
 							<div class="col-sm-10">
-								<textarea class="form-control" id="resultado" rows = "" ></textarea>
+								<textarea class="form-control" id="resultado" rows = ""></textarea>
 							</div>
 						</div>
 					</form>
@@ -105,21 +79,6 @@
 	<script src="highlight.pack.js"></script>
 		<script>hljs.initHighlightingOnLoad();</script>
 	<script type="text/javascript">
-		function preview(){
-			var str_array = fileName.split('.');
-			var extensao = str_array[1];
-			
-			if(extensao == 'cs'){extensao = 'c#';}
-			
-			document.getElementById('preview_content').attributes["class"].value = extensao;
-			document.getElementById('preview_content').innerHTML = document.getElementById('resultado').value;
-			
-			
-			
-		}
-	
-	
-	
 		var fileName = "";
 		var textArea = document.getElementById('resultado');
 		
