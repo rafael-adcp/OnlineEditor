@@ -108,7 +108,11 @@
 	<script type="text/javascript">
 		function preview(){
 			var str_array = fileName.split('.');
-			document.getElementById('preview_content').className = str_array[1];
+			var extensao = str_array[1].toUpperCase();
+			
+			if(extensao == 'CS'){extensao = 'C#';}
+			
+			document.getElementById('preview_content').className = extensao;
 			document.getElementById('preview_content').innerHTML = document.getElementById('resultado').value;
 			
 			
