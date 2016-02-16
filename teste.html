@@ -4,189 +4,30 @@
 		<meta charset="utf-8">
 		<title>Teste</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="styles/monokai-sublime.css">
 	</head>
 	<body>
 		<div class="container-fluid">
-			
+			<pre><code class="SQL">
+create table #teste(
+	id int  IDENTITY(1,1),
+	data date,
+	valor decimal(10,2),
+	categoria varchar(20)
+	)
+insert into #teste (data,valor,categoria) values ('2015-1-2',94.98,19)	
+
+	</code></pre>
 		</div>
 	</body>
 	<script src="http://code.jquery.com/jquery-1.12.0.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	
 	
-	<link rel="stylesheet" href="styles/monokai-sublime.css">
+	
 	<script src="highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 	
-		<pre><code class="SQL">
-			create table #teste(
-	id int  IDENTITY(1,1),
-	data date,
-	valor decimal(10,2),
-	categoria varchar(20)
-)
-insert into #teste (data,valor,categoria) values ('2015-1-2',94.98,19)
-insert into #teste (data,valor,categoria) values ('2015-1-5',280,24)
-insert into #teste (data,valor,categoria) values ('2015-1-5',94,9)
-insert into #teste (data,valor,categoria) values ('2015-1-5',200,9)
-insert into #teste (data,valor,categoria) values ('2015-1-5',21.05,14)
-insert into #teste (data,valor,categoria) values ('2015-1-5',43.7,10)
-insert into #teste (data,valor,categoria) values ('2015-1-5',300,18)
-insert into #teste (data,valor,categoria) values ('2015-1-6',25,27)
-insert into #teste (data,valor,categoria) values ('2015-1-6',477.97,7)
-insert into #teste (data,valor,categoria) values ('2015-1-8',10,27)
-insert into #teste (data,valor,categoria) values ('2015-1-8',19.5,4)
-insert into #teste (data,valor,categoria) values ('2015-1-12',53.2,4)
-insert into #teste (data,valor,categoria) values ('2015-1-12',25,2)
-insert into #teste (data,valor,categoria) values ('2015-1-13',29.74,11)
-insert into #teste (data,valor,categoria) values ('2015-1-13',100,20)
-insert into #teste (data,valor,categoria) values ('2015-1-13',200,18)
-insert into #teste (data,valor,categoria) values ('2015-1-15',4.54,4)
-insert into #teste (data,valor,categoria) values ('2015-1-16',9.75,4)
-insert into #teste (data,valor,categoria) values ('2015-1-19',32.64,4)
-insert into #teste (data,valor,categoria) values ('2015-1-19',73.81,4)
-insert into #teste (data,valor,categoria) values ('2015-1-19',20,27)
-insert into #teste (data,valor,categoria) values ('2015-1-19',17.5,4)
-insert into #teste (data,valor,categoria) values ('2015-1-19',20,4)
-insert into #teste (data,valor,categoria) values ('2015-1-19',20,24)
-insert into #teste (data,valor,categoria) values ('2015-1-20',27.45,4)
-insert into #teste (data,valor,categoria) values ('2015-1-20',10.5,4)
-insert into #teste (data,valor,categoria) values ('2015-1-21',14.86,4)
-insert into #teste (data,valor,categoria) values ('2015-1-22',15.43,4)
-insert into #teste (data,valor,categoria) values ('2015-1-23',14.86,4)
-insert into #teste (data,valor,categoria) values ('2015-1-27',8.25,8)
-insert into #teste (data,valor,categoria) values ('2015-1-27',7.89,26)
-insert into #teste (data,valor,categoria) values ('2015-1-27',70.17,26)
-insert into #teste (data,valor,categoria) values ('2015-1-27',5.57,26)
-insert into #teste (data,valor,categoria) values ('2015-1-27',5,26)
-	</code></pre>
-	
-	<pre><code class="c#">
-	https://ubuntuincident.wordpress.com/2013/09/26/html-add-syntax-highlight-to-textarea/
-	using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using WebNewCI.Helpers;
-using WebNewCI.Models.DTO;
-
-namespace WebNewCI.Models.DAO
-{
-    public class LogDAO
-    {
-        public static List<LogDTO> ListLogs()
-        {
-            try
-            {
-                string proc = "PRCI_LIST_CI_CADA_LOG";
-                List<LogDTO> lstLogs = new List<LogDTO>();
-                
-                DataProvider db = new DataProvider(Constants.CIDatabases.DB_CI);    
-                DataTable table = db.ExecProcedureDT(proc);
-
-                foreach (DataRow row in table.Rows)
-                {
-                    lstLogs.Add(new LogDTO(row));
-                }
-
-                return lstLogs;
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        public static List<LogDTO> GetLogs(long COD_LOG, string NOM_CTRO = null, string NOM_ACAO = null)
-        {
-            try
-            {
-                string proc = "PRCI_DETAILS_CI_CADA_LOG";
-                List<LogDTO> lstLogs = new List<LogDTO>();
-
-                List<SqlParameter> arrParam = new List<SqlParameter>();
-
-                arrParam.Add(new SqlParameter("@COD_LOG", Complements.ValueOrDBNull(COD_LOG)));
-                arrParam.Add(new SqlParameter("@NOM_CTRO", Complements.ValueOrDBNull(NOM_CTRO)));
-                arrParam.Add(new SqlParameter("@NOM_ACAO", Complements.ValueOrDBNull(NOM_ACAO)));
-                
-                DataProvider db = new DataProvider(Constants.CIDatabases.DB_CI);
-                DataTable table = db.ExecProcedureDT(proc, arrParam);
-
-                foreach (DataRow row in table.Rows)
-                {
-                    lstLogs.Add(new LogDTO(row));
-                }
-
-                return lstLogs;
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        public static void InsertLog(LogDTO log)
-        {
-            try
-            {
-                if (!filterLog(log))
-                {
-                    string proc = "PRCI_INSERT_CI_CADA_LOG";
-
-                    List<SqlParameter> arrParam = new List<SqlParameter>();
-                    arrParam = log.ToSqlParameterInsert();
-
-                    DataProvider db = new DataProvider(Constants.CIDatabases.DB_CI);
-                    db.ExecProcedureNonQuery(proc, arrParam);
-                }
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        public static string InsertLog(LogDTO log, bool returnID)
-        {
-            try
-            {
-                string logId = "";
-                if (!filterLog(log))
-                {
-                    string proc = "PRCI_INSERT_CI_CADA_LOG";
-
-                    List<SqlParameter> arrParam = new List<SqlParameter>();
-                    arrParam = log.ToSqlParameterInsert();
-
-                    DataProvider db = new DataProvider(Constants.CIDatabases.DB_CI);
-                    DataTable table = db.ExecProcedureDT(proc, arrParam);
-
-                    logId = table.Rows[0]["COD_LOG"].CastNull<string>();
-                }
-                return logId;
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        private static bool filterLog(LogDTO log)
-        {
-            string filterControllerLogs = ConfigDAO.GetConfig("filterControllerLogs");
-            string filterActionLogs = ConfigDAO.GetConfig("filterActionLogs");
-
-            if (filterControllerLogs.Contains(log.NOM_CTRO) || filterActionLogs.Contains(log.NOM_ACAO))
-            {
-                return true;
-            }
-
-            return false;
-        }
-    }
-}
-	
-	</code></pre>
+		
 	
 </html>
