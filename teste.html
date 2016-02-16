@@ -19,7 +19,129 @@
 	<script>hljs.initHighlightingOnLoad();</script>
 	<pre><code class="c#">
 	https://ubuntuincident.wordpress.com/2013/09/26/html-add-syntax-highlight-to-textarea/
-	
+	using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using WebNewCI.Helpers;
+using WebNewCI.Models.DTO;
+
+namespace WebNewCI.Models.DAO
+{
+    public class LogDAO
+    {
+        public static List<LogDTO> ListLogs()
+        {
+            try
+            {
+                string proc = "PRCI_LIST_CI_CADA_LOG";
+                List<LogDTO> lstLogs = new List<LogDTO>();
+                
+                DataProvider db = new DataProvider(Constants.CIDatabases.DB_CI);    
+                DataTable table = db.ExecProcedureDT(proc);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    lstLogs.Add(new LogDTO(row));
+                }
+
+                return lstLogs;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public static List<LogDTO> GetLogs(long COD_LOG, string NOM_CTRO = null, string NOM_ACAO = null)
+        {
+            try
+            {
+                string proc = "PRCI_DETAILS_CI_CADA_LOG";
+                List<LogDTO> lstLogs = new List<LogDTO>();
+
+                List<SqlParameter> arrParam = new List<SqlParameter>();
+
+                arrParam.Add(new SqlParameter("@COD_LOG", Complements.ValueOrDBNull(COD_LOG)));
+                arrParam.Add(new SqlParameter("@NOM_CTRO", Complements.ValueOrDBNull(NOM_CTRO)));
+                arrParam.Add(new SqlParameter("@NOM_ACAO", Complements.ValueOrDBNull(NOM_ACAO)));
+                
+                DataProvider db = new DataProvider(Constants.CIDatabases.DB_CI);
+                DataTable table = db.ExecProcedureDT(proc, arrParam);
+
+                foreach (DataRow row in table.Rows)
+                {
+                    lstLogs.Add(new LogDTO(row));
+                }
+
+                return lstLogs;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public static void InsertLog(LogDTO log)
+        {
+            try
+            {
+                if (!filterLog(log))
+                {
+                    string proc = "PRCI_INSERT_CI_CADA_LOG";
+
+                    List<SqlParameter> arrParam = new List<SqlParameter>();
+                    arrParam = log.ToSqlParameterInsert();
+
+                    DataProvider db = new DataProvider(Constants.CIDatabases.DB_CI);
+                    db.ExecProcedureNonQuery(proc, arrParam);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public static string InsertLog(LogDTO log, bool returnID)
+        {
+            try
+            {
+                string logId = "";
+                if (!filterLog(log))
+                {
+                    string proc = "PRCI_INSERT_CI_CADA_LOG";
+
+                    List<SqlParameter> arrParam = new List<SqlParameter>();
+                    arrParam = log.ToSqlParameterInsert();
+
+                    DataProvider db = new DataProvider(Constants.CIDatabases.DB_CI);
+                    DataTable table = db.ExecProcedureDT(proc, arrParam);
+
+                    logId = table.Rows[0]["COD_LOG"].CastNull<string>();
+                }
+                return logId;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private static bool filterLog(LogDTO log)
+        {
+            string filterControllerLogs = ConfigDAO.GetConfig("filterControllerLogs");
+            string filterActionLogs = ConfigDAO.GetConfig("filterActionLogs");
+
+            if (filterControllerLogs.Contains(log.NOM_CTRO) || filterActionLogs.Contains(log.NOM_ACAO))
+            {
+                return true;
+            }
+
+            return false;
+        }
+    }
+}
 	
 	</code></pre>
 	
