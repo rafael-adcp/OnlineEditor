@@ -108,7 +108,7 @@
 	<script type="text/javascript">
 		function preview(){
 			var str_array = fileName.split('.');
-			var extensao = str_array[1];
+			var extensao = str_array[1].toUpperCase();
 			
 			if(extensao == 'CS'){extensao = 'C#';}
 			
