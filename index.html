@@ -108,9 +108,9 @@
 	<script type="text/javascript">
 		function preview(){
 			var str_array = fileName.split('.');
-			var extensao = str_array[1].toUpperCase();
+			var extensao = str_array[1];
 			
-			if(extensao == 'CS'){extensao = 'C#';}
+			if(extensao == 'cs'){extensao = 'c#';}
 			
 			document.getElementById('preview_content').attributes["class"].value = extensao;
 			document.getElementById('preview_content').innerHTML = document.getElementById('resultado').value;
